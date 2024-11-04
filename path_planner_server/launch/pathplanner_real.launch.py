@@ -6,14 +6,25 @@ from launch.actions import TimerAction
 
 def generate_launch_description():
     # Paths to config files
-    controller_yaml = os.path.join(get_package_share_directory('path_planner_server'), 'config', 'controller.yaml')
-    bt_navigator_yaml = os.path.join(get_package_share_directory('path_planner_server'), 'config', 'bt_navigator.yaml')
-    planner_yaml = os.path.join(get_package_share_directory('path_planner_server'), 'config', 'planner_server.yaml')
-    recovery_yaml = os.path.join(get_package_share_directory('path_planner_server'), 'config', 'recovery.yaml')
-    rviz_config = os.path.join(get_package_share_directory('path_planner_server'), 'config', 'pathplanning_rviz_config.rviz')
+    controller_yaml = os.path.join(get_package_share_directory('path_planner_server'), 'config', 'controller_real.yaml')
+    bt_navigator_yaml = os.path.join(get_package_share_directory('path_planner_server'), 'config', 'bt_navigator_real.yaml')
+    planner_yaml = os.path.join(get_package_share_directory('path_planner_server'), 'config', 'planner_server_real.yaml')
+    recovery_yaml = os.path.join(get_package_share_directory('path_planner_server'), 'config', 'recovery_real.yaml')
+    filters_yaml = filters_yaml = os.path.join(get_package_share_directory('path_planner_server'), 'config', 'filters_real.yaml')
+    #rviz_config = os.path.join(get_package_share_directory('path_planner_server'), 'config', 'pathplanning_rviz_config.rviz')
 
     return LaunchDescription([
-        # Launch planner server immediately
+        # Launch controller server
+        Node(
+            package='nav2_controller',
+            executable='controller_server',
+            name='controller_server',
+            output='screen',
+            parameters=[controller_yaml],
+            #remappings=[('/cmd_vel', '/diffbot_base_controller/cmd_vel_unstamped')]
+        ),
+        
+        # Launch planner server
         Node(
             package='nav2_planner',
             executable='planner_server',
@@ -21,50 +32,41 @@ def generate_launch_description():
             output='screen',
             parameters=[planner_yaml]
         ),
+        
+        Node(
+            package='nav2_map_server',
+            executable='map_server',
+            name='filter_mask_server',
+            output='screen',
+            emulate_tty=True,
+            parameters=[filters_yaml]),
+        
+        Node(
+            package='nav2_map_server',
+            executable='costmap_filter_info_server',
+            name='costmap_filter_info_server',
+            output='screen',
+            emulate_tty=True,
+            parameters=[filters_yaml]),
 
-        # Delay launching controller server by 5 seconds
-        TimerAction(
-            period=5.0,
-            actions=[
-                Node(
-                    package='nav2_controller',
-                    executable='controller_server',
-                    name='controller_server',
-                    output='screen',
-                    parameters=[controller_yaml],
-                )
-            ]
+        Node(
+            package='nav2_behaviors',
+            executable='behavior_server',
+            name='behavior_server',
+            parameters=[recovery_yaml],
+            output='screen'),
+
+
+        # Launch behavior tree navigator
+        Node(
+            package='nav2_bt_navigator',
+            executable='bt_navigator',
+            name='bt_navigator',
+            output='screen',
+            parameters=[bt_navigator_yaml]
         ),
-
-        # Delay launching behavior server by 5 seconds
-        TimerAction(
-            period=5.0,
-            actions=[
-                Node(
-                    package='nav2_behaviors',
-                    executable='behavior_server',
-                    name='behavior_server',
-                    parameters=[recovery_yaml],
-                    output='screen'
-                )
-            ]
-        ),
-
-        # Delay launching bt_navigator by 5 seconds
-        TimerAction(
-            period=5.0,
-            actions=[
-                Node(
-                    package='nav2_bt_navigator',
-                    executable='bt_navigator',
-                    name='bt_navigator',
-                    output='screen',
-                    parameters=[bt_navigator_yaml]
-                )
-            ]
-        ),
-
-        # Launch lifecycle manager immediately
+        
+        # Launch lifecycle manager for path planner
         Node(
             package='nav2_lifecycle_manager',
             executable='lifecycle_manager',
@@ -75,6 +77,9 @@ def generate_launch_description():
                         {'node_names': ['planner_server',
                                         'controller_server',
                                         'behavior_server',
-                                        'bt_navigator']}]
+                                        'bt_navigator',
+                                        'filter_mask_server',
+                                        'costmap_filter_info_server'
+                                        ]}]
         ),
     ])

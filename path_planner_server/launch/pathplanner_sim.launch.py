@@ -73,7 +73,10 @@ def generate_launch_description():
             output='screen',
             parameters=[{'use_sim_time': True},
                         {'autostart': True},
-                        {'node_names': ['planner_server',
+                        {'node_names': [
+                                        #'map_server',
+                                        #'amcl',
+                                        'planner_server',
                                         'controller_server',
                                         'behavior_server',
                                         'bt_navigator',

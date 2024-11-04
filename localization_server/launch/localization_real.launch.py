@@ -80,15 +80,7 @@ def generate_launch_description():
                         {'node_names': ['map_server', 'amcl']}]
         ),
         
-        # Add a static transform publisher to link 'map' and 'odom' or 'robot_odom'
-        Node(
-            package='tf2_ros',
-            executable='static_transform_publisher',
-            name='map_to_odom_static_broadcaster',
-            output='screen',
-            arguments=['0', '0', '0', '0', '0', '0', 'map', odom_frame],
-            parameters=[{'use_sim_time': use_sim_time}]
-        ),
+       
     ])
 
 

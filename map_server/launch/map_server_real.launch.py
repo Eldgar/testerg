@@ -46,24 +46,13 @@ def generate_launch_description():
             arguments=['-d', rviz_config_file]
         ),
 
-        # Start the lifecycle manager to manage the state transitions of the nodes
-        Node(
-            package='nav2_lifecycle_manager',
-            executable='lifecycle_manager',
-            name='lifecycle_manager_mapper',
-            output='screen',
-            parameters=[{'use_sim_time': False},
-                        {'autostart': True},
-                        {'node_names': ['map_server']}]
-        ),
-
         # Add a static transform publisher to link 'map' and 'odom'
         Node(
             package='tf2_ros',
             executable='static_transform_publisher',
             name='map_to_odom_static_broadcaster',
             output='screen',
-            arguments=['0', '0', '0', '0', '0', '0', 'map', 'odom'],
+            arguments=['0', '0', '0', '0', '0', '0', 'map', 'robot_odom'],
             parameters=[{'use_sim_time': False}]
         ),
     ])

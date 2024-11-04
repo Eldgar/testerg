@@ -17,9 +17,9 @@ amcl:
     laser_max_range: 100.0
     laser_min_range: -1.0
     laser_model_type: "likelihood_field"
-    max_beams: 270
-    max_particles: 5000
-    min_particles: 200
+    max_beams: 135
+    max_particles: 2500
+    min_particles: 250
     odom_frame_id: "robot_odom"
     pf_err: 0.05
     pf_z: 0.99
@@ -37,3 +37,5 @@ amcl:
     z_max: 0.05
     z_rand: 0.5
     z_short: 0.05
+    scan_topic: "scan"
+    map_topic: "/map"
