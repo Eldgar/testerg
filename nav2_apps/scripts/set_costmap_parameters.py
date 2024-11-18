@@ -101,3 +101,48 @@ def set_footprint(node, parameter_clients, footprint_type, radius=None, polygon=
             node.get_logger().error(f"Failed to call service {client.srv_name} on {costmap_node}.")
             return False
     return True
+
+def set_max_velocity(node, client, max_vel_x=0.1, max_vel_theta=0.23):
+    req = SetParameters.Request()
+    req.parameters = [
+        Parameter(name='FollowPath.max_vel_x', value=ParameterValue(type=3, double_value=max_vel_x)),
+        Parameter(name='FollowPath.max_vel_theta', value=ParameterValue(type=3, double_value=max_vel_theta))
+    ]
+
+    # Send the request
+    future = client.call_async(req)
+    rclpy.spin_until_future_complete(node, future)
+
+    # Check the result
+    if future.result() is not None and all(result.successful for result in future.result().results):
+        print("Successfully set max_vel_x to 0.1 and max_vel_theta to 0.2")
+    else:
+        print("Failed to set max velocity parameters.")
+
+def set_goal_tolerances(node, parameter_clients, xy_tolerance, yaw_tolerance):
+    # Define the parameters to update
+    parameters = [
+        Parameter(
+            name='general_goal_checker.xy_goal_tolerance',
+            value=ParameterValue(type=ParameterType.PARAMETER_DOUBLE, double_value=xy_tolerance)
+        ),
+        Parameter(
+            name='general_goal_checker.yaw_goal_tolerance',
+            value=ParameterValue(type=ParameterType.PARAMETER_DOUBLE, double_value=yaw_tolerance)
+        )
+    ]
+    
+    # Send parameter update requests to each costmap node
+    for costmap_node, client in parameter_clients.items():
+        request = SetParameters.Request(parameters=parameters)
+        future = client.call_async(request)
+        rclpy.spin_until_future_complete(node, future)
+        if future.result() is not None:
+            results = future.result().results
+            if all([res.successful for res in results]):
+                node.get_logger().info(f"Tolerances successfully updated on {costmap_node}: xy_goal_tolerance={xy_tolerance}, yaw_goal_tolerance={yaw_tolerance}")
+            else:
+                node.get_logger().error(f"Failed to update tolerances on {costmap_node}")
+        else:
+            node.get_logger().error(f"Failed to call service {client.srv_name} on {costmap_node}")
+    return True

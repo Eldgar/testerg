@@ -1,3 +1,4 @@
+#ros2 launch localization_server localization_sim.launch.py
 import os
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
@@ -26,7 +27,7 @@ def generate_launch_description():
     
 
     # Path for the RViz config file
-    rviz_config_file = os.path.join(get_package_share_directory('localization_server'), 'config', 'paths5.rviz')
+    rviz_config_file = os.path.join(get_package_share_directory('localization_server'), 'config', 'paths_sim.rviz')
 
     # Path for the map file
     map_file_path = [os.path.join(get_package_share_directory('map_server'), 'config'), '/', map_file_name]
@@ -81,6 +82,7 @@ def generate_launch_description():
                         {'autostart': True},
                         {'node_names': ['map_server', 'amcl']}]
         ),
+
         
         # Add a static transform publisher to link 'map' and 'odom' or 'robot_odom'
         Node(
@@ -88,7 +90,7 @@ def generate_launch_description():
             executable='static_transform_publisher',
             name='map_to_odom_static_broadcaster',
             output='screen',
-            arguments=['0', '0', '0', '0', '0', '0', 'map', odom_frame],
+            arguments=['0', '0', '0', '0', '0', '0', 'map', 'odom'],
             parameters=[{'use_sim_time': use_sim_time}]
         ),
     ])

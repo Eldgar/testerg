@@ -21,6 +21,7 @@ Panels:
         - /LocalCostMap1
         - /GlobalFootprint1
         - /LocalFootprint1
+        - /Path2
       Splitter Ratio: 0.5
     Tree Height: 553
   - Class: rviz_common/Selection
@@ -40,7 +41,7 @@ Panels:
     Experimental: false
     Name: Time
     SyncMode: 0
-    SyncSource: LaserScan
+    SyncSource: ""
 Visualization Manager:
   Class: ""
   Displays:
@@ -126,26 +127,6 @@ Visualization Manager:
           Value: false
         odom:
           Value: false
-        robot_base_docking_contact_link:
-          Value: false
-        robot_base_footprint:
-          Value: true
-        robot_base_link:
-          Value: false
-        robot_evelator_base_link:
-          Value: false
-        robot_front_cover_link:
-          Value: false
-        robot_front_laser_base_link:
-          Value: true
-        robot_omni_backwheel_link:
-          Value: false
-        robot_omni_front_leftwheel_link:
-          Value: false
-        robot_omni_front_rightwheel_link:
-          Value: false
-        robot_top_cover_link:
-          Value: false
       Marker Scale: 1
       Name: TF
       Show Arrows: true
@@ -154,23 +135,7 @@ Visualization Manager:
       Tree:
         map:
           odom:
-            robot_base_footprint:
-              robot_base_link:
-                robot_evelator_base_link:
-                  {}
-                robot_front_cover_link:
-                  robot_base_docking_contact_link:
-                    {}
-                robot_front_laser_base_link:
-                  {}
-                robot_omni_backwheel_link:
-                  {}
-                robot_omni_front_leftwheel_link:
-                  {}
-                robot_omni_front_rightwheel_link:
-                  {}
-              robot_top_cover_link:
-                {}
+            {}
       Update Interval: 0
       Value: true
     - Alpha: 1
@@ -191,7 +156,7 @@ Visualization Manager:
       Value: true
     - Alpha: 0.699999988079071
       Class: rviz_default_plugins/Map
-      Color Scheme: map
+      Color Scheme: costmap
       Draw Behind: false
       Enabled: true
       Name: GlobalCostMap
@@ -260,7 +225,7 @@ Visualization Manager:
       Value: true
     - Alpha: 0.699999988079071
       Class: rviz_default_plugins/Map
-      Color Scheme: map
+      Color Scheme: costmap
       Draw Behind: false
       Enabled: true
       Name: LocalCostMap
@@ -304,6 +269,34 @@ Visualization Manager:
         History Policy: Keep Last
         Reliability Policy: Reliable
         Value: /local_costmap/published_footprint
+      Value: true
+    - Alpha: 1
+      Buffer Length: 1
+      Class: rviz_default_plugins/Path
+      Color: 25; 100; 255
+      Enabled: true
+      Head Diameter: 0.029999999329447746
+      Head Length: 0.019999999552965164
+      Length: 0.30000001192092896
+      Line Style: Lines
+      Line Width: 0.029999999329447746
+      Name: Path
+      Offset:
+        X: 0
+        Y: 0
+        Z: 0
+      Pose Color: 255; 85; 255
+      Pose Style: Arrows
+      Radius: 0.029999999329447746
+      Shaft Diameter: 0.009999999776482582
+      Shaft Length: 0.05000000074505806
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        Filter size: 10
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /local_plan
       Value: true
   Enabled: true
   Global Options:
@@ -351,25 +344,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 9.471015930175781
+      Distance: 7.003056049346924
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: -1.4122908115386963
-        Y: -0.18901905417442322
-        Z: 0.866225004196167
+        X: -0.6013772487640381
+        Y: -0.7639029622077942
+        Z: 0.509800374507904
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.7803979516029358
+      Pitch: 1.5697963237762451
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 1.0503978729248047
+      Yaw: 1.5753973722457886
     Saved: ~
 Window Geometry:
   Displays:

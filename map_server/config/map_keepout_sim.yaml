@@ -1,4 +1,5 @@
 image: map_keepout_sim.pgm
+mode: trinary
 resolution: 0.05
 origin: [-4.43, -4.05, 0]
 negate: 0

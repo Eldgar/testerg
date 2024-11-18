@@ -41,7 +41,7 @@ Panels:
     Experimental: false
     Name: Time
     SyncMode: 0
-    SyncSource: LaserScan
+    SyncSource: ""
 Visualization Manager:
   Class: ""
   Displays:
@@ -99,7 +99,7 @@ Visualization Manager:
       Enabled: true
       Invert Rainbow: false
       Max Color: 255; 255; 255
-      Max Intensity: 0
+      Max Intensity: 8000
       Min Color: 0; 0; 0
       Min Intensity: 0
       Name: LaserScan
@@ -125,27 +125,7 @@ Visualization Manager:
         All Enabled: false
         map:
           Value: false
-        odom:
-          Value: false
-        robot_base_docking_contact_link:
-          Value: false
-        robot_base_footprint:
-          Value: true
-        robot_base_link:
-          Value: false
-        robot_evelator_base_link:
-          Value: false
-        robot_front_cover_link:
-          Value: false
-        robot_front_laser_base_link:
-          Value: true
-        robot_omni_backwheel_link:
-          Value: false
-        robot_omni_front_leftwheel_link:
-          Value: false
-        robot_omni_front_rightwheel_link:
-          Value: false
-        robot_top_cover_link:
+        robot_odom:
           Value: false
       Marker Scale: 1
       Name: TF
@@ -154,24 +134,8 @@ Visualization Manager:
       Show Names: false
       Tree:
         map:
-          odom:
-            robot_base_footprint:
-              robot_base_link:
-                robot_evelator_base_link:
-                  {}
-                robot_front_cover_link:
-                  robot_base_docking_contact_link:
-                    {}
-                robot_front_laser_base_link:
-                  {}
-                robot_omni_backwheel_link:
-                  {}
-                robot_omni_front_leftwheel_link:
-                  {}
-                robot_omni_front_rightwheel_link:
-                  {}
-              robot_top_cover_link:
-                {}
+          robot_odom:
+            {}
       Update Interval: 0
       Value: true
     - Alpha: 1
@@ -192,7 +156,7 @@ Visualization Manager:
       Value: true
     - Alpha: 0.699999988079071
       Class: rviz_default_plugins/Map
-      Color Scheme: map
+      Color Scheme: costmap
       Draw Behind: false
       Enabled: true
       Name: GlobalCostMap
@@ -261,7 +225,7 @@ Visualization Manager:
       Value: true
     - Alpha: 0.699999988079071
       Class: rviz_default_plugins/Map
-      Color Scheme: map
+      Color Scheme: costmap
       Draw Behind: false
       Enabled: true
       Name: LocalCostMap
@@ -311,8 +275,8 @@ Visualization Manager:
       Class: rviz_default_plugins/Path
       Color: 25; 100; 255
       Enabled: true
-      Head Diameter: 0.30000001192092896
-      Head Length: 0.20000000298023224
+      Head Diameter: 0.029999999329447746
+      Head Length: 0.019999999552965164
       Length: 0.30000001192092896
       Line Style: Lines
       Line Width: 0.029999999329447746
@@ -324,8 +288,8 @@ Visualization Manager:
       Pose Color: 255; 85; 255
       Pose Style: Arrows
       Radius: 0.029999999329447746
-      Shaft Diameter: 0.10000000149011612
-      Shaft Length: 0.10000000149011612
+      Shaft Diameter: 0.009999999776482582
+      Shaft Length: 0.05000000074505806
       Topic:
         Depth: 5
         Durability Policy: Volatile
@@ -380,25 +344,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 4.8552470207214355
+      Distance: 6.902212142944336
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: -1.4122908115386963
-        Y: -0.18901905417442322
-        Z: 0.866225004196167
+        X: 0.9071710705757141
+        Y: -1.4007657766342163
+        Z: 0.4179247319698334
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.7903979420661926
+      Pitch: 1.5697963237762451
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 1.1003978252410889
+      Yaw: 1.390397548675537
     Saved: ~
 Window Geometry:
   Displays:
